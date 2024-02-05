@@ -12,6 +12,7 @@ body{
     font-family: 'Roboto', sans-serif;
     background: #222;
     font-size: 120%;
+    background-image: url('https://source.unsplash.com/1920x1080/?landscape');
 }
 
 .card{
@@ -61,4 +62,8 @@ input.search-bar {
 
 h1.temp {
     margin: 0;
+}
+
+.daily-container {
+    display: flex;
 }

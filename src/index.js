@@ -40,6 +40,7 @@ const getWeather = (city) => {
 }
 
 const showDailyForecastDetails = (weatherInfo,city) => {
+    document.body.style.backgroundImage="url('https://source.unsplash.com/1920x1080/?"+city+"')"
     cityName.innerHTML = city.charAt(0).toUpperCase()+city.slice(1);
     today.innerHTML = weatherInfo.dayOfWeekStr;
     currentTemp.innerHTML = weatherInfo.currentTemperature+"°C";
@@ -51,7 +52,7 @@ const showDailyForecastDetails = (weatherInfo,city) => {
 
 const getWeatherForecast = (city) => {
     const apiForecast = `http://api.weatherapi.com/v1/forecast.json?key=dcf626c1b3c54fc5aca215757243001&q=${city}&days=3`;
-    
+    dailyContainer.innerHTML="";
     fetch(apiForecast)
     .then (response=>{
         if(!response.ok){
@@ -65,15 +66,15 @@ const getWeatherForecast = (city) => {
             let weatherInfo={};
             weatherInfo.currentTemperature = Math.round(day.day.avgtemp_c);
             weatherInfo.conditionIcon = "https:"+day.day.condition.icon;
-            let date = new Date (day.date);
-            let dayOfWeekNum=date.getDay();
             weatherInfo.windSpeed = day.day.maxwind_kph;
             weatherInfo.humidity = day.day.avghumidity;
             weatherInfo.conditionText = day.day.condition.text;
             weatherInfo.minTemp = Math.round(day.day.mintemp_c);
             weatherInfo.maxTemp = Math.round(day.day.maxtemp_c);
-            let daysOfWeekArray = ["Sunday","Monday","Tuesday","Wednesday","Tuesday",
-            "Friday","Saturday"];
+            let date = new Date (day.date);
+            let dayOfWeekNum=date.getDay();
+            let daysOfWeekArray = ["Monday","Tuesday","Wednesday","Tuesday",
+            "Friday","Saturday", "Sunday"];
             weatherInfo.dayOfWeekStr = daysOfWeekArray[dayOfWeekNum];
             let dailyForecastHtml = generateDailyForecastHtml(weatherInfo,city);
             dailyContainer.appendChild(dailyForecastHtml);
